@@ -33,7 +33,8 @@ public class UI {
     public static void eventListener() throws Exception { 
         Toolkit.getDefaultToolkit().getSystemClipboard().addFlavorListener(new FlavorListener() { 
             @Override 
-            public void flavorsChanged(FlavorEvent e) { 
+            public void flavorsChanged(FlavorEvent e) {
+            	
             	try {
 					Thread.sleep(200);
 				} catch (InterruptedException e2) {
@@ -44,15 +45,18 @@ public class UI {
                 try {
                 	
                 	String copied = c.getData(DataFlavor.stringFlavor).toString();
-                	//String translated = Processor.Translator(copied);
-					//System.out.println(translated);
-                	System.out.println(copied);
-
-                	
+                	if(!copied.equals("")) {
+                		GUI.clear.doClick();
+                		System.out.println(copied);
+                		GUI.translate.doClick();}
+                		
+                		
+	                
 	                StringSelection stringSelection = new StringSelection("");
 	                Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
 	                            stringSelection, null);
-	                GUI.translate.doClick();
+	                
+	                
 				} catch (UnsupportedFlavorException | IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

@@ -1,5 +1,6 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.UnsupportedEncodingException;
@@ -7,9 +8,13 @@ import java.io.UnsupportedEncodingException;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
+import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import org.jdesktop.swingx.prompt.PromptSupport;
 
 public class GUI extends JFrame {
 
@@ -23,8 +28,10 @@ public class GUI extends JFrame {
     public static JButton translate = new JButton("Translate");
 
     public GUI() {
+    	
         frame = new JFrame("Instant Translator");
         JPanel p = new JPanel();
+       
         clear.addActionListener(new OpenL());
         p.add(clear);
         translate.addActionListener(new Trans());
@@ -32,6 +39,7 @@ public class GUI extends JFrame {
         frame.setBounds(0, 0, 400, 200);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         textArea = new JTextArea();
+        frame.setLocationRelativeTo(null);
         frame.getContentPane().add(textArea, BorderLayout.CENTER);
         frame.getContentPane().add(p, BorderLayout.SOUTH);
         frame.setAlwaysOnTop(true);
@@ -52,6 +60,7 @@ public class GUI extends JFrame {
         }
       }
     
+    
     class Trans implements ActionListener {
     	 public void actionPerformed(ActionEvent e) {
     		String contents = textArea.getText();
@@ -63,6 +72,8 @@ public class GUI extends JFrame {
     		}
     		
          	textArea.setText(sb.toString());
+         	
+         	
          	
          }
     }

@@ -57,6 +57,13 @@ public class Processor {
         return transValue;
     }
     
+    public static void setKey(String key) {
+    	subscriptionKey = key;
+    }
+    public static String getKey() {
+    	return subscriptionKey;
+    }
+    
     public static String Translator(String text) {
         try {
             Processor translateRequest = new Processor();

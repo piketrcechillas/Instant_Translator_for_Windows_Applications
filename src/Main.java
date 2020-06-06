@@ -9,18 +9,7 @@ import javax.swing.JOptionPane;
  */
 
 public class Main {
-	public static void main(String[] args) throws Exception {
-        while (Processor.getKey().equals("YOUR_SUBSCRIPTION_KEY") || Processor.getKey().equals("")) {
-        	String APIKey = JOptionPane.showInputDialog("Please enter your Microsoft Azure API key");
-        	Processor.setKey(APIKey);
-        	
-        	if(!Processor.getKey().equals("YOUR_SUBSCRIPTION_KEY") || !Processor.getKey().equals(""))
-        	{ StringSelection stringSelection = new StringSelection("");
-        	  Toolkit.getDefaultToolkit().getSystemClipboard().setContents(
-                      stringSelection, null);}
-        	
-        }
-        
+	public static void main(String[] args) throws Exception { 
         UI ui = new UI();
         ui.eventListener();
     }

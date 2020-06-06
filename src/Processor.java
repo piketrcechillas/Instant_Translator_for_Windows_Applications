@@ -18,22 +18,18 @@ import java.awt.Toolkit;
 
 public class Processor {
 
-    private static String subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
+   private static String subscriptionKey = "YOUR_SUBSCRIPTION_KEY";
     private static String endpoint = "https://api.cognitive.microsofttranslator.com";
-    String url = endpoint + "/translate?api-version=3.0&to=vi";
+   
 
     OkHttpClient client = new OkHttpClient();
 
     // This function performs a POST request.
     public String Post(String text) throws IOException {
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create("[{\n\t\"Text\": \"" + text + "\"\n}]",
-        		mediaType
-                );
+        String url = "https://api.mymemory.translated.net/get?q=" + text + "&langpair=en|vi&tbb=1&ie=UTF-8&oe=UTF-8&de=ngocphuongpro98@gmail.com";
         Request request = new Request.Builder()
-                .url(url).post(body)
-                .addHeader("Ocp-Apim-Subscription-Key", subscriptionKey)
-                .addHeader("Content-type", "application/json").build();
+                .url(url).get().build();
         Response response = client.newCall(request).execute();
         return response.body().string();
     }
@@ -42,18 +38,11 @@ public class Processor {
     public static String textResult(String json_text) throws JSONException {
     	String value = null;
     	String transValue = null;
-        JSONArray jsonArray = new JSONArray(json_text);    
-        for(int i=0;i<jsonArray.length();i++)
-        {
-            JSONObject jsonObject1 = jsonArray.getJSONObject(i);
-            value = jsonObject1.optString("translations");
-        }
-        JSONArray trans = new JSONArray(value);
-        for(int i=0;i<trans.length();i++)
-        {
-            JSONObject jsonObject1 = trans.getJSONObject(i);
-            transValue = jsonObject1.optString("text");
-        }
+        JSONObject jsonObject = new JSONObject(json_text);    
+        value = jsonObject.optString("responseData");
+        JSONObject jsonObject1 = new JSONObject(value);   
+        transValue = jsonObject1.optString("translatedText");
+
         return transValue;
     }
     
@@ -68,6 +57,7 @@ public class Processor {
         try {
             Processor translateRequest = new Processor();
             String response = translateRequest.Post(text);
+            System.out.println(textResult(response));
             return textResult(response);
         } catch (Exception e) {
             System.out.println(e);
